@@ -1,0 +1,37 @@
+services:
+  grafana-internal:
+    image: grafana/grafana-oss:latest
+    container_name: grafana-internal
+    hostname: grafana-internal
+    profiles:
+      - dev
+      - prod
+      - prod-internal
+    ports:
+      - mode: host
+        target: 3000
+        published: 3000
+    volumes:
+      - type: volume
+        source: grafana-data
+        target: /var/lib/grafana
+      - type: bind
+        source: ../config/grafana-internal
+        target: /etc/grafana/provisioning
+        read_only: true
+    environment:
+      - GF_SECURITY_ADMIN_USER=${DEFAULT_ROOT_USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${DEFAULT_ROOT_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP
+      - GF_INSTALL_PLUGINS=${GRAFANA_INTERNAL_PLUGINS}
+      - GF_DEFAULT_INSTANCE_NAME=${GRAFANA_INTERNAL_INSTANCE_NAME}
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana-internal.${DEFAULT_INTERNAL_VIRTUAL_DOMAIN}`)"
+      - "traefik.http.routers.grafana.entrypoints=http"
+    networks:
+      proxy:
+      monitoring-internal:
+    depends_on:
+      - prometheus
