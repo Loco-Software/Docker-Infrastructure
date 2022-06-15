@@ -2,36 +2,34 @@ services:
   grafana-internal:
     extends:
       file: services/grafana-internal.yaml
-      service: gefana-internal
-
-  grafana-external:
-    extends:
-      file: services/grafana-internal.yaml
-      service: gefana-external
+      service: grafana-internal
 
 networks:
   default:
     ipam:
       config:
-        - subnet: ${DEFAULT_IP_RANGE}.141.0/24
-          ip_range: ${DEFAULT_IP_RANGE}.141.0/24
+        - subnet: ${DEFAULT_DOCKER_IP_RANGE}.141.0/24
+          ip_range: ${DEFAULT_DOCKER_IP_RANGE}.141.0/24
   proxy:
     name: proxy
     ipam:
       config:
-        - subnet: ${DEFAULT_IP_RANGE}.0.0/24
-          ip_range: ${DEFAULT_IP_RANGE}.0.0/24
+        - subnet: ${DEFAULT_DOCKER_IP_RANGE}.0.0/24
+          ip_range: ${DEFAULT_DOCKER_IP_RANGE}.0.0/24
 
   monitoring-internal:
     name: monitoring-internal
     ipam:
       config:
-        - subnet: ${DEFAULT_IP_RANGE}.1.0/24
-          ip_range: ${DEFAULT_IP_RANGE}.1.0/24
+        - subnet: ${DEFAULT_DOCKER_IP_RANGE}.1.0/24
+          ip_range: ${DEFAULT_DOCKER_IP_RANGE}.1.0/24
 
   monitoring-external:
     name: monitoring-internal
     ipam:
       config:
-        - subnet: ${DEFAULT_IP_RANGE}.201.0/24
-          ip_range: ${DEFAULT_IP_RANGE}.201.0/24
+        - subnet: ${DEFAULT_DOCKER_IP_RANGE}.201.0/24
+          ip_range: ${DEFAULT_DOCKER_IP_RANGE}.201.0/24
+
+volumes:
+  grafana-data:
