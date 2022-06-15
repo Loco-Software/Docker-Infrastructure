@@ -7,7 +7,7 @@ body:
       value: |
         Thanks for taking the time to fill out this Request!
   - type: input
-    id: service-name:
+    id: service-name
     attributes:
       label: Name of Software/Container/Service
       description: Please enter the Name of the Docker Image
