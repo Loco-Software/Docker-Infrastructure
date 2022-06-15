@@ -1,0 +1,49 @@
+name: New Container / Service Request
+description: Request a new Container / Service
+labels: ["New Container"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this Request!
+  - type: input
+    id: service-name:
+    attributes:
+      label: Name of Software/Container/Service
+      description: Please enter the Name of the Docker Image
+      placeholder: "whoami:latest"
+  - type: input
+    id: container-name
+    attributes:
+      label: Container Name
+  - type: dropdown
+    id: restart-policy
+    attributes:
+      label: Restart Policy
+      options:
+        - unless-stopped
+        - never
+        - always
+  - type: input
+    id: profiles
+    attributes:
+      label: Service Profiles
+  - type: textarea
+    id: port-mappings
+    attributes:
+      label: Port Mappings
+  - type: textarea
+    id: data-mappings
+    attributes:
+      label: Volume/Binds Mappings
+  - type: textarea
+    id: labels
+    attributes:
+      label: Labels
+  - type: textarea
+    id: information
+    attributes:
+      label: Additional Information
+      description: |
+        Network...
+        etc...
